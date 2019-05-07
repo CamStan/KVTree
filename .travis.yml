@@ -82,6 +82,9 @@ matrix:
 
 before_install:
     - eval "${MATRIX_EVAL}"
+    - cmake --version
+    - which mpiexec
+    - which mpicc
 
 script:
   - mkdir build
@@ -91,5 +94,6 @@ script:
   - make check
 
 after_failure:
+  - find . -type f -name "CMakeCache.txt" -execdir cat {} \;
   - find . -type f -name "CMakeOutput.log" -execdir cat {} \;
   - find . -type f -name "CMakeError.log" -execdir cat {} \;
